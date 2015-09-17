@@ -22,6 +22,7 @@ bindkey "\en" history-beginning-search-forward
 
 alias be='bundle exec'
 alias tat='tmux new-session -As `basename $PWD`'
+alias plz='sudo'
 
 function eject { command hdiutil eject `df | grep Volumes | grep "$@" | ruby -ne 'puts $_[/^[^ ]*/]'`; }
 
