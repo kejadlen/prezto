@@ -14,6 +14,7 @@ export EDITOR=vim
 export VISUAL=vim
 
 unsetopt correct # Don't autocorrect
+unsetopt flowcontrol # So ^S and ^Q can be used
 setopt no_nomatch # Pass bad matches on
 setopt no_share_history
 
@@ -36,6 +37,26 @@ fi
 
 if command -v direnv &> /dev/null; then
   eval "$(direnv hook zsh)"
+fi
+
+if command -v selecta &> /dev/null; then
+  # Run Selecta in the current working directory, appending the selected path, if
+  # any, to the current command.
+  function insert-selecta-path-in-command-line() {
+      local selected_path
+      # Print a newline or we'll clobber the old prompt.
+      echo
+      # Find the path; abort if the user doesn't select anything.
+      selected_path=$(find * -type f | selecta) || return
+      # Append the selection to the current command buffer.
+      eval 'LBUFFER="$LBUFFER$selected_path"'
+      # Redraw the prompt since Selecta has drawn several new lines of text.
+      zle reset-prompt
+  }
+  # Create the zle widget
+  zle -N insert-selecta-path-in-command-line
+  # Bind the key to the newly created widget
+  bindkey "^S" "insert-selecta-path-in-command-line"
 fi
 
 [[ -s "$HOME/.zshrc.local" ]] && . "$HOME/.zshrc.local"
