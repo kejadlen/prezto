@@ -27,4 +27,8 @@ alias plz='sudo'
 
 function eject { command hdiutil eject `df | grep Volumes | grep -i "$@" | ruby -ne 'puts $_[/^[^ ]*/]'`; }
 
+if type chruby > /dev/null; then
+  chruby ruby
+fi
+
 [[ -s "$HOME/.zshrc.local" ]] && . "$HOME/.zshrc.local"
