@@ -23,7 +23,8 @@ bindkey "\en" history-beginning-search-forward
 
 alias be='bundle exec'
 alias tat='tmux new-session -As `basename $PWD | ruby -e "puts ARGF.read.strip.downcase.gsub(/[^\w]+/, ?-)"`'
-alias plz='sudo'
+alias plz=sudo
+alias ls=exa
 
 function eject { command hdiutil eject `df | grep Volumes | grep -i "$@" | ruby -ne 'puts $_[/^[^ ]*/]'`; }
 
