@@ -32,14 +32,18 @@ if type chruby > /dev/null; then
   chruby ruby
 fi
 
-[[ -s "$HOME/.zshrc.local" ]] && . "$HOME/.zshrc.local"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if [ -e /usr/local/opt/fzf/shell/completion.zsh ]; then
   source /usr/local/opt/fzf/shell/key-bindings.zsh
   source /usr/local/opt/fzf/shell/completion.zsh
+fi
 
+if type fzf > /dev/null; then
   export FZF_DEFAULT_COMMAND="rg --files"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
   alias fzf=fzf-tmux
 fi
+
+[[ -s "$HOME/.zshrc.local" ]] && . "$HOME/.zshrc.local"
