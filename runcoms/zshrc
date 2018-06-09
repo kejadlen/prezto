@@ -25,6 +25,8 @@ alias be='bundle exec'
 alias tat='tmux new-session -As `basename $PWD | ruby -e "puts ARGF.read.strip.downcase.gsub(/[^\w]+/, ?-)"`'
 alias plz=sudo
 alias ls=exa
+alias emacs="emacs --no-window"
+alias tmux="direnv exec / tmux"
 
 function eject { command hdiutil eject `df | grep Volumes | grep -i "$@" | ruby -ne 'puts $_[/^[^ ]*/]'`; }
 
