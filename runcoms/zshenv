@@ -10,7 +10,7 @@ if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; t
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
 
-export PATH="$HOME/.dotfiles/bin:$HOME/.cargo/bin:/usr/local/bin:$PATH"
+export PATH="$HOME/.dotfiles/bin:$HOME/.cargo/bin:/usr/local/bin:$HOME/.local/bin:$PATH"
 
 if command -v brew &> /dev/null; then
   if [[ -s `brew --prefix`/share/chruby/chruby.sh ]]; then
