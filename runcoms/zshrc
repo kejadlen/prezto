@@ -48,4 +48,6 @@ if type fzf > /dev/null; then
   alias fzf=fzf-tmux
 fi
 
+fpath=(~/.zsh/completion $fpath)
+
 [[ -s "$HOME/.zshrc.local" ]] && . "$HOME/.zshrc.local"
