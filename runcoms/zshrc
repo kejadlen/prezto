@@ -10,4 +10,17 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
+export EDITOR=vim
+export VISUAL=vim
+
+unsetopt correct # Don't autocorrect
+setopt no_nomatch # Pass bad matches on
+setopt no_share_history
+
+bindkey "\ep" history-beginning-search-backward
+bindkey "\en" history-beginning-search-forward
+
+alias be='bundle exec'
+alias tat='tmux new-session -As `basename $PWD`'
+
+[[ -s "$HOME/.zshrc.local" ]] && . "$HOME/.zshrc.local"
