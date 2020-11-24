@@ -48,8 +48,4 @@ if type fzf > /dev/null; then
   alias fzf=fzf-tmux
 fi
 
-if type kubectl > /dev/null; then
-  source <(kubectl completion zsh)
-fi
-
 [[ -s "$HOME/.zshrc.local" ]] && . "$HOME/.zshrc.local"
