@@ -30,7 +30,7 @@ alias tmux="direnv exec / tmux"
 
 function eject { command hdiutil eject `df | grep Volumes | grep -i "$@" | ruby -ne 'puts $_[/^[^ ]*/]'`; }
 
-if type chruby > /dev/null; then
+if [ $commands[chruby] ]; then
   chruby ruby
 fi
 
@@ -41,7 +41,7 @@ if [ -e /usr/local/opt/fzf/shell/completion.zsh ]; then
   source /usr/local/opt/fzf/shell/completion.zsh
 fi
 
-if type fzf > /dev/null; then
+if [ $commands[fzf] ]; then
   export FZF_DEFAULT_COMMAND="rg --files"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND="find . -type d"
