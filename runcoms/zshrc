@@ -12,6 +12,7 @@ fi
 
 export EDITOR=vim
 export VISUAL=vim
+export RPROMPT=
 
 unsetopt correct # Don't autocorrect
 unsetopt flowcontrol # So ^S and ^Q can be used
