@@ -43,10 +43,39 @@ if [ -e /usr/local/opt/fzf/shell/completion.zsh ]; then
 fi
 
 if [ $commands[fzf] ]; then
+  export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
   export FZF_DEFAULT_COMMAND="rg --files"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND="find . -type d"
-  alias fzf=fzf-tmux
+  # alias fzf=fzf-tmux
+
+  z() {
+    [ $# -gt 0 ] && fasd_cd -d "$*" && return
+    local dir
+    dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
+  }
+
+  # CTRL-G
+  __fgit() {
+    local cmd="git status --porcelain | awk '{ print \$2 }'"
+    setopt localoptions pipefail no_aliases 2> /dev/null
+    local item
+    eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS" $(__fzfcmd) -m "$@" | while read item; do
+      echo -n "${(q)item} "
+    done
+    local ret=$?
+    echo
+    return $ret
+  }
+
+  fzf-git-widget() {
+    LBUFFER="${LBUFFER}$(__fgit)"
+    local ret=$?
+    zle reset-prompt
+    return $ret
+  }
+  zle     -N   fzf-git-widget
+  bindkey '^G' fzf-git-widget
 fi
 
 [[ -s "$HOME/.zshrc.local" ]] && . "$HOME/.zshrc.local"
