@@ -24,3 +24,5 @@ if command -v direnv &> /dev/null; then
 fi
 
 if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile.d/nix.sh; fi
+if [ -e /Users/alpha/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/alpha/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+. "$HOME/.cargo/env"
