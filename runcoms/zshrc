@@ -85,5 +85,9 @@ if [ $commands[fzf] ]; then
   bindkey '^G' fzf-git-widget
 fi
 
+if [ $commands[exa] ]; then
+  export EXA_COLORS="di=34"
+fi
+
 [[ -s "$HOME/.zshrc.local" ]] && . "$HOME/.zshrc.local"
 
