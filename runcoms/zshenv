@@ -10,8 +10,6 @@ if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; t
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
 
-export PATH="$HOME/.dotfiles/bin:$HOME/.cargo/bin:/usr/local/bin:$HOME/.local/bin:$PATH"
-
 if command -v brew &> /dev/null; then
   if [[ -s `brew --prefix`/share/chruby/chruby.sh ]]; then
     source `brew --prefix`/share/chruby/chruby.sh
@@ -23,6 +21,8 @@ if command -v direnv &> /dev/null; then
   eval "$(direnv hook zsh)"
 fi
 
-if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile.d/nix.sh; fi
-if [ -e /Users/alpha/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/alpha/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-. "$HOME/.cargo/env"
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/etc/profile.d/nix.sh; fi # added by Nix installer
+if [ -e $HOME/.cargo/env ]; then . "$HOME/.cargo/env"; fi
+
+export PATH="$HOME/.dotfiles/bin:$HOME/.local/bin:$PATH"
