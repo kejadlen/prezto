@@ -64,6 +64,9 @@ if [ $commands[fzf] ]; then
   export FZF_ALT_C_COMMAND="find . -type d"
   # alias fzf=fzf-tmux
 
+  # https://github.com/junegunn/fzf/issues/164#issuecomment-581837757
+  bindkey "ç" fzf-cd-widget
+
   z() {
     [ $# -gt 0 ] && fasd_cd -d "$*" && return
     local dir
