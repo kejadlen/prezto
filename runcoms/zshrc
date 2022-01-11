@@ -52,9 +52,10 @@ if [ -e $brew_prefix/opt/fzf/shell/completion.zsh ]; then
   source $brew_prefix/opt/fzf/shell/completion.zsh
 fi
 
-if [ -e $brew_prefix/bin/terraform ]; then
+[ -x "$(command -v kubectl)" ] && source <(kubectl completion zsh)
+if [ -x "$(command -v terraform)" ]; then
   autoload -U +X bashcompinit && bashcompinit
-  complete -o nospace -C $brew_prefix/bin/terraform terraform
+  complete -o nospace -C /opt/homebrew/bin/terraform terraform
 fi
 
 if [ $commands[fzf] ]; then
@@ -154,4 +155,3 @@ if [ $commands[exa] ]; then
 fi
 
 [[ -s "$HOME/.zshrc.local" ]] && . "$HOME/.zshrc.local"
-
