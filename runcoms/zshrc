@@ -35,7 +35,7 @@ alias tmux="direnv exec / tmux"
 
 function eject { command hdiutil eject `df | grep Volumes | grep -i "$@" | ruby -ne 'puts $_[/^[^ ]*/]'`; }
 
-eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
+eval "$(brew shellenv)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
