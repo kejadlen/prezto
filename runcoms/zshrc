@@ -146,7 +146,7 @@ if [ $commands[fzf] ]; then
 
     fasd_fzf() {
       local dir
-      dir="$(fasd -Rds "$1" | fzf -1 -0 --no-sort +m | awk '{print $2}')" && cd "${dir}" || return 1
+      dir="$(fasd -Rds "$1" | fzf -1 -0 --no-sort +m | sed -r 's/^[^[:space:]]+[[:space:]]+//')" && cd "${dir}" || return 1
     }
     alias j=fasd_fzf # override prezto's fasd integration
   fi
