@@ -32,7 +32,7 @@ alias plz=sudo
 alias ls=exa
 alias emacs="emacs --no-window"
 alias tmux="direnv exec / tmux"
-alias ,df="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+alias ,df="git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME"
 
 function eject { command hdiutil eject `df | grep Volumes | grep -i "$@" | ruby -ne 'puts $_[/^[^ ]*/]'`; }
 
@@ -155,6 +155,15 @@ fi
 
 if [ $commands[exa] ]; then
   export EXA_COLORS="di=34"
+fi
+
+# https://docs.brew.sh/Shell-Completion
+if type brew &>/dev/null
+then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
+  autoload -Uz compinit
+  compinit
 fi
 
 [[ -s "$HOME/.zshrc.local" ]] && . "$HOME/.zshrc.local"
