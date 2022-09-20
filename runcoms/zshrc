@@ -32,6 +32,7 @@ alias plz=sudo
 alias ls=exa
 alias emacs="emacs --no-window"
 alias tmux="direnv exec / tmux"
+alias ,df="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 
 function eject { command hdiutil eject `df | grep Volumes | grep -i "$@" | ruby -ne 'puts $_[/^[^ ]*/]'`; }
 
