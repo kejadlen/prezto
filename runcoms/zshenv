@@ -10,11 +10,7 @@ if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; t
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
 
-if command -v direnv &> /dev/null; then
-  eval "$(direnv hook zsh)"
-fi
-
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 if [ -e $HOME/.cargo/env ]; then . "$HOME/.cargo/env"; fi
 
-export PATH="$HOME/.dotfiles/bin:$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"

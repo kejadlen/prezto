@@ -10,12 +10,16 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+if command -v direnv &> /dev/null; then
+  eval "$(direnv hook zsh)"
+fi
+
 export NIX_PATH=${NIX_PATH:+$NIX_PATH:}$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels
 
 zstyle :prompt:pure:prompt:success color green
 
-export EDITOR=vim
-export VISUAL=vim
+export EDITOR=nvim
+export VISUAL=nvim
 export RPROMPT=
 
 unsetopt correct # Don't autocorrect
