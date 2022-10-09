@@ -172,4 +172,7 @@ then
   compinit
 fi
 
+# allow for pasting commands from the interwebs with a preceding $ prompt
+function \$() { "$@" }
+
 [[ -s "$HOME/.zshrc.local" ]] && . "$HOME/.zshrc.local"
