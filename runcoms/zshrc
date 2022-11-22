@@ -26,6 +26,7 @@ unsetopt correct # Don't autocorrect
 unsetopt flowcontrol # So ^S and ^Q can be used
 setopt no_nomatch # Pass bad matches on
 setopt no_share_history
+setopt prompt_subst interactive_comments # Starship: https://github.com/sorin-ionescu/prezto/issues/1887#issuecomment-1040761561
 
 bindkey "\ep" history-beginning-search-backward
 bindkey "\en" history-beginning-search-forward
