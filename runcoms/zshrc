@@ -49,9 +49,14 @@ if [ -e $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh ]; then
 fi
 
 [ -x "$(command -v kubectl)" ] && source <(kubectl completion zsh)
+
 if [ -x "$(command -v terraform)" ]; then
   autoload -U +X bashcompinit && bashcompinit
   complete -o nospace -C /opt/homebrew/bin/terraform terraform
+fi
+
+if [ -e $HOMEBREW_PREFIX/share/z.lua/z.lua ]; then
+  eval "$(lua $HOMEBREW_PREFIX/share/z.lua/z.lua --init zsh enhanced fzf)"
 fi
 
 if [ $commands[fzf] ]; then
@@ -66,12 +71,6 @@ if [ $commands[fzf] ]; then
 
   # https://github.com/junegunn/fzf/issues/164#issuecomment-581837757
   bindkey "ç" fzf-cd-widget
-
-  z() {
-    [ $# -gt 0 ] && fasd_cd -d "$*" && return
-    local dir
-    dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
-  }
 
   # https://junegunn.kr/2016/07/fzf-git/
   is_in_git_repo() {
@@ -154,15 +153,12 @@ if [ $commands[fzf] ]; then
   bind-git-helper f g t r h s
   unset -f bind-git-helper
 
-  if [ $commands[fasd] ]; then
-    # https://github.com/junegunn/fzf/wiki/examples#with-fasd-1
-
-    fasd_fzf() {
-      local dir
-      dir="$(fasd -Rds "$1" | fzf -1 -0 --no-sort +m | sed -r 's/^[^[:space:]]+[[:space:]]+//')" && cd "${dir}" || return 1
-    }
-    alias j=fasd_fzf # override prezto's fasd integration
-  fi
+  # https://github.com/skywind3000/z.lua/wiki/Effective-with-fzf#define-a-new-z--i
+  zlua_fzf() {
+    local dir
+    dir="$(z -l "$1" | fzf --nth 2.. -1 -0 --inline-info --no-sort +m --reverse --tac | sed -r 's/^[^[:space:]]+[[:space:]]+//')" && cd "${dir}" || return 1
+  }
+  alias j=zlua_fzf # override prezto's fasd integration
 fi
 
 if [ $commands[exa] ]; then
