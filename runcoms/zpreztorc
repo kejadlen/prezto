@@ -209,7 +209,8 @@ zstyle ':prezto:module:syntax-highlighting' highlighters \
   'root'
 #
 # Set syntax highlighting styles.
-# zstyle ':prezto:module:syntax-highlighting' styles \
+zstyle ':prezto:module:syntax-highlighting' styles \
+  'cursor' 'bg=white' # needs to be set for alacritty to work right?
 #   'builtin' 'bg=blue' \
 #   'command' 'bg=blue' \
 #   'function' 'bg=blue'
