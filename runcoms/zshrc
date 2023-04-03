@@ -64,7 +64,7 @@ if [ $commands[fzf] ]; then
   source "/opt/homebrew/opt/fzf/shell/key-bindings.zsh"
 
   export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
-  export FZF_DEFAULT_COMMAND="fd --type f"
+  export FZF_DEFAULT_COMMAND="fd --hidden --follow --type f"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND="fd --type d"
   # alias fzf=fzf-tmux
