@@ -34,34 +34,35 @@ bindkey "\en" history-beginning-search-forward
 alias be='bundle exec'
 alias tat='tmux new-session -As `basename $PWD | ruby -e "puts ARGF.read.strip.downcase.gsub(/[^\w]+/, ?-)"`'
 alias plz=sudo
-alias ls=exa
 alias emacs="emacs --no-window"
 alias tmux="direnv exec / tmux"
-alias ,df="git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME"
 
 function eject { command hdiutil eject `df | grep Volumes | grep -i "$@" | ruby -ne 'puts $_[/^[^ ]*/]'`; }
 
-eval "$(brew shellenv)"
-
-if [ -e $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh ]; then
-  source $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh
-  source $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh
-fi
-
-[ -x "$(command -v kubectl)" ] && source <(kubectl completion zsh)
-
-if [ -x "$(command -v terraform)" ]; then
-  autoload -U +X bashcompinit && bashcompinit
-  complete -o nospace -C /opt/homebrew/bin/terraform terraform
-fi
+# allow for pasting commands from the interwebs with a preceding $ prompt
+function \$() { "$@" }
 
 if [ -e $HOMEBREW_PREFIX/share/z.lua/z.lua ]; then
   eval "$(lua $HOMEBREW_PREFIX/share/z.lua/z.lua --init zsh enhanced fzf)"
 fi
 
+if [ $commands[exa] ]; then
+  alias ls=exa
+  export EXA_COLORS="di=34"
+fi
+
+if [ $commands[bat] ]; then
+  export BAT_THEME="ashes"
+fi
+
+### homebrew
+
+eval "$(brew shellenv)"
+
+### fzf
+
 if [ $commands[fzf] ]; then
   [[ $- == *i* ]] && source "/opt/homebrew/opt/fzf/shell/completion.zsh" 2> /dev/null
-  source "/opt/homebrew/opt/fzf/shell/key-bindings.zsh"
 
   export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
   export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix --hidden --follow --exclude .git"
@@ -77,6 +78,9 @@ if [ $commands[fzf] ]; then
   # ^gb is eaten by tmux
   eval "bindkey '^gg' fzf-git-branches-widget"
 
+  # I don't know why ^gl doesn't work - is it because ^l is eaten by tmux?
+  eval "bindkey '^gr' fzf-git-lreflogs-widget"
+
   # https://github.com/skywind3000/z.lua/wiki/Effective-with-fzf#define-a-new-z--i
   zlua_fzf() {
     local dir
@@ -85,12 +89,18 @@ if [ $commands[fzf] ]; then
   alias j=zlua_fzf # override prezto's fasd integration
 fi
 
-if [ $commands[exa] ]; then
-  export EXA_COLORS="di=34"
+### completions
+
+if [ -e $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh ]; then
+  source $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh
+  source $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh
 fi
 
-if [ $commands[bat] ]; then
-  export BAT_THEME="ashes"
+[ -x "$(command -v kubectl)" ] && source <(kubectl completion zsh)
+
+if [ -x "$(command -v terraform)" ]; then
+  autoload -U +X bashcompinit && bashcompinit
+  complete -o nospace -C /opt/homebrew/bin/terraform terraform
 fi
 
 # https://docs.brew.sh/Shell-Completion
@@ -102,7 +112,6 @@ then
   compinit
 fi
 
-# allow for pasting commands from the interwebs with a preceding $ prompt
-function \$() { "$@" }
+### local overrides
 
 [[ -s "$HOME/.zshrc.local" ]] && . "$HOME/.zshrc.local"
