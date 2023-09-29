@@ -46,9 +46,9 @@ if [ -e $HOMEBREW_PREFIX/share/z.lua/z.lua ]; then
   eval "$(lua $HOMEBREW_PREFIX/share/z.lua/z.lua --init zsh enhanced fzf)"
 fi
 
-if [ $commands[exa] ]; then
-  alias ls=exa
-  export EXA_COLORS="di=34"
+if [ $commands[eza] ]; then
+  alias ls=eza
+  export EZA_COLORS="di=34"
 fi
 
 if [ $commands[bat] ]; then
