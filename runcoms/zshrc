@@ -10,6 +10,11 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+export PATH=~/.dotfiles/bin:$PATH
+export EDITOR=nvim
+export VISUAL=nvim
+export RPROMPT=
+
 if command -v direnv &> /dev/null; then
   eval "$(direnv hook zsh)"
 fi
@@ -17,10 +22,6 @@ fi
 export NIX_PATH=${NIX_PATH:+$NIX_PATH:}$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels
 
 zstyle :prompt:pure:prompt:success color green
-
-export EDITOR=nvim
-export VISUAL=nvim
-export RPROMPT=
 
 unsetopt correct # Don't autocorrect
 unsetopt flowcontrol # So ^S and ^Q can be used
@@ -42,8 +43,8 @@ function eject { command hdiutil eject `df | grep Volumes | grep -i "$@" | ruby 
 # allow for pasting commands from the interwebs with a preceding $ prompt
 function \$() { "$@" }
 
-if [ -e $HOMEBREW_PREFIX/share/z.lua/z.lua ]; then
-  eval "$(lua $HOMEBREW_PREFIX/share/z.lua/z.lua --init zsh enhanced fzf)"
+if [ -e $(brew --prefix z.lua)/share/z.lua/z.lua ]; then
+  eval "$(lua $(brew --prefix z.lua)/share/z.lua/z.lua --init zsh enhanced fzf)"
 fi
 
 if [ $commands[eza] ]; then
