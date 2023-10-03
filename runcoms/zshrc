@@ -44,7 +44,9 @@ function eject { command hdiutil eject `df | grep Volumes | grep -i "$@" | ruby 
 function \$() { "$@" }
 
 if [ -e $(brew --prefix z.lua)/share/z.lua/z.lua ]; then
-  eval "$(lua $(brew --prefix z.lua)/share/z.lua/z.lua --init zsh enhanced fzf)"
+  eval "$(lua $(brew --prefix z.lua)/share/z.lua/z.lua --init zsh enhanced once echo fzf)"
+
+  alias fz="z -I"
 fi
 
 if [ $commands[eza] ]; then
@@ -92,9 +94,9 @@ fi
 
 ### completions
 
-if [ -e $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh ]; then
-  source $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh
-  source $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh
+if [ -e $(brew --prefix fzf)/shell/completion.zsh ]; then
+  source $(brew --prefix fzf)/shell/key-bindings.zsh
+  source $(brew --prefix fzf)/shell/completion.zsh
 fi
 
 [ -x "$(command -v kubectl)" ] && source <(kubectl completion zsh)
