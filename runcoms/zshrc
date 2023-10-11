@@ -94,6 +94,10 @@ fi
 
 ### completions
 
+if [ -x $(command -v jj) ]; then
+  source <(jj util completion --zsh)
+fi
+
 if [ -e $(brew --prefix fzf)/shell/completion.zsh ]; then
   source $(brew --prefix fzf)/shell/key-bindings.zsh
   source $(brew --prefix fzf)/shell/completion.zsh
