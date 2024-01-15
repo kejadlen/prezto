@@ -123,6 +123,9 @@ then
   compinit
 fi
 
+# Added by OrbStack: command-line tools and integration
+source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+
 ### local overrides
 
 [[ -s "$HOME/.zshrc.local" ]] && . "$HOME/.zshrc.local"
