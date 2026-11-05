@@ -1,3 +1,9 @@
+> [!NOTE]
+> This is an archive of my personal Prezto fork. It held my zsh
+> configuration from 2015 until January 2024, when I switched to
+> zsh4humans and moved the configuration into my dotfiles. My changes are
+> in `runcoms/`.
+
 # Prezto — Instantly Awesome Zsh
 
 Prezto is the configuration framework for [Zsh][1]; it enriches the command line
